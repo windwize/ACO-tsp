@@ -8,16 +8,6 @@ import numpy as np
 class ACO(object):
     def __init__(self, ant_count: int, generations: int, alpha: float, beta: float, rho: float, q: int,
                  strategy: int,distance,points):
-        """
-        :param ant_count:
-        :param generations:
-        :param alpha: relative importance of pheromone
-        :param beta: relative importance of heuristic information
-        :param rho: pheromone residual coefficient
-        :param q: pheromone intensity
-        :param strategy: pheromone update strategy. 0 - ant-cycle, 1 - ant-quality, 2 - ant-density
-        :param distance: distance between each points
-        """
         self.Q = q
         self.rho = rho
         self.beta = beta
