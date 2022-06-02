@@ -21,7 +21,7 @@ def random_init(points_num,min_x, max_x, min_y, max_y):
     return points
 
 def dis(point1,point2):
-    return math.sqrt((point1[0]-point2[0]) ** 2 + (point1[1] - point2[1]) ** 2)#距離計算
+    return math.sqrt((point1[0]-point2[0]) ** 2 + (point1[1] - point2[1]) ** 2)#distance
 
 def calculate_distance(points):
     distance = []
