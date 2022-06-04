@@ -55,7 +55,7 @@ def init_pos(rank):
     pos = random.randint(0,rank-1)
     return pos
 
-def load_example(number):
+def load_example(number):#read data
     url = f'./data/example-{number}.txt'
     file = open(url,'r')
     content = file.readlines()
