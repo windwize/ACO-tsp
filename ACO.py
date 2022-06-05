@@ -12,10 +12,10 @@ class ACO(object):
         self.rho = rho
         self.beta = beta
         self.alpha = alpha
-        self.ant_count = ant_count  # x = 10
+        self.ant_count = ant_count  
         self.generations = generations
         self.update_strategy = strategy
-        self.points = points  # n = 30
+        self.points = points  
         self.distance = distance 
         self.rank = len(distance)   
         self.eta = [[0 if i == j else 1 / distance[i][j] for j in range(self.rank)] for i in
