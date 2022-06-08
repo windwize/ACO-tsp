@@ -33,7 +33,6 @@ def calculate_distance(points):
     return distance
     
 def get_next_pos(possibility):
-    #print(possibility)
     n = sum(possibility)
     
     for i in range(len(possibility)):
@@ -105,7 +104,7 @@ def save_best_result(cost,path,points):
         y2 = points[path[i]][1]
         plt.arrow(x1, y1, x2 - x1, y2 - y1, width = 0.05,color='r', length_includes_head=True)
     plt.arrow(x2,y2,points[path[0]][0]-x2,points[path[0]][1]-y2, width = 0.05,color='r', length_includes_head=True)
-    #plt.text(0, 0, f'min_cost = {cost}')
+
     plt.savefig("result.png")
     plt.close()
 

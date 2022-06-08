@@ -12,33 +12,33 @@ class ACO(object):
         self.rho = rho
         self.beta = beta
         self.alpha = alpha
-        self.ant_count = ant_count  # x = 10
+        self.ant_count = ant_count
         self.generations = generations
         self.update_strategy = strategy
-        self.points = points  # n = 30
+        self.points = points
         self.distance = distance 
         self.rank = len(distance)   
         self.eta = [[0 if i == j else 1 / distance[i][j] for j in range(self.rank)] for i in
                     range(self.rank)]
 
         self.pheromone_content = [[1 for _ in range(self.rank)] for _ in range(self.rank)]    
-        # for i in range(self.rank):
-        #     self.pheromone_content[i][i]=0
+
+
 
     def initialization(self):
-        # memory vector is used to record the total path of each ant
+
         self.memory_vector = []
         for _ in range(self.ant_count):
-            # random initialize each ant first
+
             self.memory_vector.append([init_pos(self.rank)])
         
 
     def roulette(self,id,pos):
-        # classical roulette method 
+
         possibility = []
         for i in range(self.rank):
             if i in self.memory_vector[id]:
-                # if the ant has been to the point, pass it
+                # if the ant has been to the point, ignore it
                 possibility.append(0)
             else:
                 possibility.append(self.pheromone_content[pos][i]**self.alpha*(self.eta[pos][i]**self.beta))
@@ -47,8 +47,7 @@ class ACO(object):
         return next_pos
 
     def update_pheromone_delta(self,ant_path):
-        # we must update the pheromone content in the same time, instead of one by one, otherwise it may 
-        # affect the possibility of other ants
+
         if self.update_strategy == 0:
             for i in range(self.ant_count):
                 self.pheromone_content[ant_path[i][0]][ant_path[i][1]]+=self.Q
@@ -64,7 +63,7 @@ class ACO(object):
                     self.pheromone_content[self.memory_vector[i][-1]][self.memory_vector[i][0]]+=self.Q/self.distance[self.memory_vector[i][0]][self.memory_vector[i][-1]]
                     self.pheromone_content[self.memory_vector[i][0]][self.memory_vector[i][-1]]+=self.Q/self.distance[self.memory_vector[i][0]][self.memory_vector[i][-1]]
         elif self.update_strategy == 2:
-            # finish one cycle
+
             if len(self.memory_vector[0]) == self.rank:
                 total_cost = []
                 for i in range(self.ant_count):
@@ -81,7 +80,7 @@ class ACO(object):
                     self.pheromone_content[self.memory_vector[i][0]][self.memory_vector[i][-1]]+=delta
                     self.pheromone_content[self.memory_vector[i][-1]][self.memory_vector[i][0]]+=delta
             else:
-                # have not finished one cycle
+
                 pass
         else:
             raise KeyError
@@ -100,7 +99,7 @@ class ACO(object):
             print(f'-----start iteration {iteration+1} of ACO-----')
             self.initialization()
             for steps in range(self.rank-1):
-                # in a new iteration, each ant choose a path, from pos to next_pos
+
                 ant_path = []
                 for i in range(self.ant_count):
                     pos = self.memory_vector[i][-1]
@@ -112,7 +111,7 @@ class ACO(object):
             plt.cla()
             plt.title("ACO")
             cost,path = draw_picture(self.points,self.distance,self.memory_vector,iteration)
-            #print(f'best path cost = {best_cost}')
+
             plt.pause(0.01)
 
         save_best_result(cost,path,self.points)
